@@ -1,0 +1,28 @@
+<!--
+Author: Hello (Sandipparida282@gmail.com)
+_navbar.html.erb (c) 2023
+Desc: description
+Created:  2023-12-11T16:10:39.575Z
+Modified: !date!
+-->
+
+<nav class="bg-blue-500 p-4">
+    <div class="container mx-auto">
+        <a href="#" class="text-white font-bold">TaskManager</a>
+        <% if current_user %>
+            <ul class="flex justify-end space-x-4">
+                <!-- <li>
+                    <a href="#" class="text-white">Home</a>
+                </li> -->
+                <li>
+                    <span class="text-white">
+                        <%= current_user.email %>
+                    </span>
+                </li>
+                <li>
+                    <%= link_to "Log Out" , logout_path, data: { turbo_method: "delete" }, class: "text-white" %>
+                </li>
+            </ul>
+            <% end %>
+    </div>
+</nav>
