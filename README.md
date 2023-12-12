@@ -13,5 +13,6 @@ This repository contains a TaskManager application built with Ruby on Rails.
    ```sh
    git clone https://github.com/princetechs/TaskManager.git
 2. Run
-```bin/dev
-in the root of the repository
+    ```sh 
+    bin/dev 
+-in the root of the repository
