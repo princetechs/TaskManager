@@ -2,20 +2,27 @@ class TeamsController < ApplicationController
   before_action :set_team, only: %i[ show edit update destroy ]
 before_action :check_session
   def index
-    @teams = Team.all
+    @teams = current_user.teams
   end
 
   def add_member
     @team = Team.find_by(id: params[:id])
-    user = User.new(email: params[:email])
-    
-    if user.save(validate: false) # Skip other validations if needed
+    exuser = User.find_by_email(params[:email])
+  
+    if exuser.nil?
+      user = User.new(email: params[:email])
+      user.save(validate: false) # Skip other validations if needed
+    end
+  
+    if exuser || user
       member_role_name = 'Member' # Assuming this is a predefined role
       member_role = Role.find_by(name: member_role_name)
-      
+  
       if member_role.present?
-        TeamUser.find_or_create_by(user: user, team: @team, role: member_role)
-        redirect_to @team, notice: "#{user.email} added to the team."
+        user_to_add = exuser || user
+  
+        TeamUser.find_or_create_by(user: user_to_add, team: @team, role: member_role)
+        redirect_to @team, notice: "#{user_to_add.email} added to the team."
       else
         # Handle the case where the role 'Member' does not exist
         redirect_to root_path, alert: "Role 'Member' does not exist."
@@ -25,6 +32,7 @@ before_action :check_session
       redirect_to root_path, alert: "User could not be added to the team."
     end
   end
+  
   
   def show
   end
@@ -41,6 +49,8 @@ before_action :check_session
 
     respond_to do |format|
       if @team.save
+        member_role = Role.find_by(name: "Admin")
+        TeamUser.create(user: current_user, team: @team, role: member_role)
         format.html { redirect_to team_url(@team), notice: "Team was successfully created." }
         format.json { render :show, status: :created, location: @team }
       else

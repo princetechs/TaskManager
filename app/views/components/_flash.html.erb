@@ -1,0 +1,21 @@
+<!--
+Author: Hello (Sandipparida282@gmail.com)
+_flash.html.erb (c) 2023
+Desc: description
+Created:  2023-12-12T09:17:23.136Z
+Modified: !date!
+-->
+<% flash_types={ notice: 'green' , alert: 'red' , error: 'red' } %>
+    <% any_flash_present=flash_types.keys.any? { |type| flash[type].present? } %>
+        <% if any_flash_present %>
+            <div id="flash-messages" class="relative inset-0 flex items-center justify-center z-50">
+                <% flash_types.each do |type, color| %>
+                    <% if flash[type].present? %>
+                        <div class="bg-<%= color %>-50 border border-<%= color %>-100 text-<%= color %>-700 px-4 py-3 rounded transition z-40 duration-300"
+                            role="alert">
+                            <%= flash[type] %>
+                        </div>
+                        <% end %>
+                            <% end %>
+            </div>
+            <% end %>

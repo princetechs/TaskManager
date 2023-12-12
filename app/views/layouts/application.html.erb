@@ -13,22 +13,10 @@
 
 <body>
   <%= render partial: "components/navbar" %>
-    <main class="container mx-auto mt-28 px-5 ">
-      <div id="flash-messages" class="relative inset-0 flex mt-72 items-center justify-center z-50">
-        <% flash_types={ notice: 'green' , alert: 'red' , error: 'red' } %>
-          <% flash_types.each do |type, color| %>
-            <% if flash[type].present? %>
-              <div
-                class="bg-<%= color %>-100 border border-<%= color %>-400 text-<%= color %>-700 px-4 py-3 rounded transition duration-300"
-                role="alert">
-                <%= flash[type] %>
-              </div>
-              <% end %>
-                <% end %>
-      </div>
+    <main class="container mx-auto mt-8 px-5 ">
+      <%= render partial: "components/flash" %>
 
-
-      <%= yield %>
+        <%= yield %>
     </main>
 </body>
 

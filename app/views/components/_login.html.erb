@@ -2,12 +2,12 @@
 Author: Hello (Sandipparida282@gmail.com)
 login.html.erb (c) 2023
 Desc: description
-Created:  2023-12-08T13:49:15.453Z
+Created: 2023-12-08T13:49:15.453Z
 Modified: !date!
 -->
 
 <div class="container mx-auto flex justify-center items-center">
-    <%= form_with url: login_path, method: :post, html: { class: 'w-full max-w-xs' } do |form| %>
+    <%= form_with(url: login_path, method: :post, html: { class: 'w-full max-w-xs' }) do |form| %>
         <div class="mb-4">
             <%= form.label :email, class: 'block text-gray-700 text-sm font-bold mb-2' %>
                 <%= form.email_field :email,
@@ -21,13 +21,15 @@ Modified: !date!
                     class: 'appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                     %>
         </div>
+        <%= recaptcha_v3(action: 'login' ) %>
 
-        <div class="mb-6 flex items-center justify-between">
-            <%= form.submit 'Log In' ,
-                class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-                %>
-                <%= link_to 'Sign Up' , signup_path,
-                    class: 'inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800' %>
-        </div>
-        <% end %>
+            <div class="mb-6 flex items-center justify-between">
+                <%= form.submit 'Log In' ,
+                    class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                    %>
+                    <%= link_to 'Sign Up' , signup_path,
+                        class: 'inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800' %>
+            </div>
+
+            <% end %>
 </div>
