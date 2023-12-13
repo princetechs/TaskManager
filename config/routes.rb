@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
-  resources :tasks
   resources :teams do
-    resources :tasks
+    resources :tasks do
+      member do
+        delete :delete_task_assignment
+      end
+    end
+  
     member do
       post 'add_member'
       # Other member management routes...
     end
   end
+  
   
   resources :roles
   root to: 'teams#index'

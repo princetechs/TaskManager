@@ -1,12 +1,29 @@
 class TasksController < ApplicationController
   before_action :set_team
-  before_action :set_task, only: [:edit, :update]
+  before_action :set_task, only: [:edit, :update, :show]
 
   def index
     user_id = current_user.id
-    team_id = @team.id
-    team_user= TeamUser.where(user_id: user_id,team_id: team_id)
-    @tasks = team_user.first.task_assignment.map { |task_assignment| task_assignment.task }
+    team_user = find_team_user(user_id, @team.id)
+    @tasks = team_user&.task_assignment&.map(&:task)
+  end
+
+  def delete_task_assignment
+    task_assignment = find_task_assignment(params[:id], params[:team_id], current_user.id)
+    puts "............."
+    puts "#{params[:id]}, #{params[:team_id]}, #{current_user.id}"
+    puts task_assignment.inspect
+    
+    if task_assignment&.destroy
+      flash[:success] = 'Task assignment deleted successfully.'
+    else
+      flash[:error] = 'Task assignment not found.'
+    end
+
+    redirect_to team_tasks_path(params[:team_id])
+  end
+
+  def show
   end
 
   def edit
@@ -56,12 +73,22 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :description)
   end
 
+  def find_team_user(user_id, team_id)
+    TeamUser.find_by(user_id: user_id, team_id: team_id)
+  end
+  def find_task_assignment(task_id, team_id, user_id)
+    team_user = find_team_user(user_id, team_id)
+    return unless team_user
+
+    team_user.task_assignment.find_by(task_id: task_id)
+  end
+
   def assign_task_to_members(member_ids)
     return if member_ids.blank?
 
-    member_ids.each do |member_id|
-      team_user = @team.team_users.find_by(user_id: member_id)
-      TaskAssignment.create(task: @task, team_user: team_user) if team_user
+    team_users = @team.team_users.where(user_id: member_ids)
+    team_users.each do |team_user|
+      TaskAssignment.create(task: @task, team_user: team_user)
     end
   end
 end

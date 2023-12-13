@@ -1,19 +1,18 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="text-3xl font-bold mb-6">
-    <!-- <%= $page %> -->
   </h1>
 
-  <%set_global_title(@team.name)%>
+  <% set_global_title(@team.name) %>
 
     <div class="mb-8">
       <h3 class="text-lg font-semibold mb-2">Actions</h3>
       <div class="flex space-x-4">
         <%= link_to 'New Task' , new_team_task_path(@team),
           class: "rounded-lg py-2 px-4 bg-indigo-600 text-white font-medium hover:bg-indigo-700" %>
-          <%= link_to 'View Tasks' , team_tasks_path(@team),
-            class: "rounded-lg py-2 px-4 bg-blue-600 text-white font-medium hover:bg-blue-700" %>
+
       </div>
     </div>
+
     <% @tasks.each do |task| %>
       <div class="border-b border-gray-300 py-4">
         <h2 class="font-semibold">
@@ -21,31 +20,45 @@
         </h2>
         <p>
           <%= task.description %>
-
-            <%=inlist(task.assigned_members.map { |member| member.user.email })%>
-
+            <%= inlist(task.assigned_members.map { |member| member.user.email }) %>
         </p>
+
+        <%= link_to edit_team_task_path(@team, task), class: "action-icon" do %>
+          <i class="fas fa-edit"></i>
+          <% end %>
+
+            <div class="inline-block ml-2">
+              <%= button_to delete_task_assignment_team_task_path(@team,task), method: :delete, class: "action-icon" ,
+                data: { confirm: 'Are you sure?' } do %>
+                <i class="fas fa-trash-alt"></i>
+                <% end %>
+            </div>
+
+
       </div>
       <% end %>
+
         <div class="mb-8">
           <h3 class="text-lg font-semibold mb-2">Add Member</h3>
-          <%= form_with url: add_member_team_path(@team), method: :post do |f| %>
+          <%= form_with(url: add_member_team_path(@team), method: :post) do |f| %>
             <div class="flex items-center mb-4">
-              <%= f.text_field :email, placeholder: ' Enter email' ,
-                class: "mr-2 rounded-md py-2 px-3 border border-gray-300 focus:outline-none focus:border-indigo-500" %>
-                <%= f.submit "Add Member" ,
-                  class: "bg-indigo-600 text-white rounded-md py-2 px-4 hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
-                  %>
+              <%= f.text_field :email, placeholder: ' Enter email' , class: "input-field" %>
+                <%= f.submit "Add Member" , class: "btn-primary" %>
             </div>
             <% end %>
         </div>
 
         <div class="flex space-x-4">
-          <%= link_to "Edit this team" , edit_team_path(@team),
-            class: "rounded-lg py-2 px-4 bg-gray-100 inline-block font-medium" %>
-            <%= button_to "Destroy this team" , team_path(@team), method: :delete,
-              class: "rounded-lg py-2 px-4 bg-gray-100 font-medium" %>
-              <%= link_to "Back to teams" , teams_path,
-                class: "rounded-lg py-2 px-4 bg-gray-100 inline-block font-medium" %>
+          <%= link_to edit_team_path(@team), class: "action-icon" do %>
+            <i class="fas fa-edit"></i>
+            <% end %>
+
+              <%= button_to team_path(@team), method: :delete, class: "action-icon" do %>
+                <i class="fas fa-trash-alt"></i>
+                <% end %>
+
+                  <%= link_to teams_path, class: "action-icon" do %>
+                    <i class="fas fa-arrow-left"></i>
+                    <% end %>
         </div>
 </div>

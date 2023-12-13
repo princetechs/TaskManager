@@ -11,16 +11,14 @@
         <%= task.description %>
       </p>
 
-      <%= link_to "Edit Task" , edit_team_task_path(@team,
-        task),class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Edit Task" , edit_team_task_path(@team, task),
+        class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 
         <div class="inline-block ml-2">
-          <%= button_to "Destroy this task" , task_path(task), method: :delete,
-            class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+          <%= button_to "Destroy this task" , team_task_path(@team, task), method: :delete,
+            class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" , data: { confirm: 'Are you sure?' } %>
         </div>
 
-        <%= link_to "Back to tasks" , tasks_path,
-          class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
     <% end %>
 </div>
