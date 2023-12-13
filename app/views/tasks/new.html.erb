@@ -1,37 +1,8 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl mb-6">New Task</h1>
 
-  <%= form_with(model: [@team, @task]) do |form| %>
-    <div class="mb-4">
-      <%= form.label :title, class: "block text-gray-700 font-bold mb-2" %>
-        <%= form.text_field :title,
-          class: "rounded-md border border-gray-300 px-3 py-2 w-full focus:outline-none focus:border-indigo-500" %>
-    </div>
+  <%= render "form" , task: @task %>
 
-    <div class="mb-4">
-      <%= form.label :description, class: "block text-gray-700 font-bold mb-2" %>
-        <%= form.text_area :description,
-          class: "rounded-md border border-gray-300 px-3 py-2 w-full focus:outline-none focus:border-indigo-500" %>
-    </div>
 
-    <div class="mb-4">
-      <% @team_members.each do |member| %>
-        <label class="inline-flex items-center">
-          <%= check_box_tag "task[assigned_member_ids][]" , member.id, false,
-            class: "form-checkbox text-indigo-500 rounded focus:outline-none focus:border-indigo-500" %>
-            <span class="ml-2 text-gray-700 font-medium">
-              <%= member.email %>
-
-            </span>
-        </label>
-        <% end %>
-    </div>
-
-    <%= form.submit 'Create Task' ,
-      class: "bg-indigo-500 text-white rounded-md py-2 px-4 hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
-      %>
-      <% end %>
-
-        <%= link_to "Back to Tasks" , tasks_path,
-          class: "mt-4 rounded-lg py-2 px-4 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Back to Tasks" , tasks_path, class: "mt-4 rounded-lg py-2 px-4 bg-gray-100 inline-block font-medium" %>
 </div>
