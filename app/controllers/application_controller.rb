@@ -28,4 +28,5 @@ class ApplicationController < ActionController::Base
   def redirect_to_login
     redirect_to login_path, notice: 'You are not logged in!'
   end
+ 
 end

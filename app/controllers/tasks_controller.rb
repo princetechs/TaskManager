@@ -2,7 +2,11 @@ class TasksController < ApplicationController
   before_action :set_team
 
    def index
-    @tasks = @team.tasks
+    user_id = current_user.id
+    team_id = @team.id
+    team_user= TeamUser.where(user_id: user_id,team_id: team_id)
+    @tasks = team_user.first.task_assignment.map { |task_assignment| task_assignment.task }
+    # @tasks = Task.joins(:task_assignments).where(task_assignments: { team_user_id: TeamUser.where(user_id: user_id, team_id: team_id) })
 
    end
 

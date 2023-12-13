@@ -1,19 +1,12 @@
-<!--
-Author: Hello (Sandipparida282@gmail.com)
-_navbar.html.erb (c) 2023
-Desc: description
-Created:  2023-12-11T16:10:39.575Z
-Modified: !date!
--->
-
+<!-- _navbar.html.erb -->
 <nav class="bg-blue-500 p-4">
-    <div class="container mx-auto">
+    <div class="container mx-auto flex justify-between items-center">
         <a href="#" class="text-white font-bold">TaskManager</a>
+        <span class="text-white">
+            <%= get_global_title.upcase.gsub('_',' ') %>
+        </span>
         <% if current_user %>
-            <ul class="flex justify-end space-x-4">
-                <!-- <li>
-                    <a href="#" class="text-white">Home</a>
-                </li> -->
+            <ul class="flex justify-end space-x-4 ">
                 <li>
                     <span class="text-white">
                         <%= current_user.email %>

@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+include ApplicationHelper
   before_action :set_team, only: %i[ show edit update destroy ]
 before_action :check_session
   def index
@@ -35,6 +36,10 @@ before_action :check_session
   
   
   def show
+    user_id = current_user.id
+    team_id = @team.id
+    team_user= TeamUser.where(user_id: user_id,team_id: team_id)
+    @tasks = team_user.first.task_assignment.map { |task_assignment| task_assignment.task }
   end
 
   def new
