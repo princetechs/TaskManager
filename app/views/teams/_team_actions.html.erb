@@ -1,0 +1,22 @@
+<!--
+Author: Hello (Sandipparida282@gmail.com)
+_team_actions.html.erb (c) 2023
+Desc: description
+Created:  2023-12-22T17:45:48.081Z
+Modified: !date!
+-->
+
+<!-- _team_actions.html.erb -->
+<% if can? :create, Task %>
+    <div class="flex space-x-4">
+        <%= link_to edit_team_path(@team), class: "action-icon" do %>
+            <i class="fas fa-edit"></i>
+            <% end %>
+                <%= button_to team_path(@team), method: :delete, class: "action-icon" do %>
+                    <i class="fas fa-trash-alt"></i>
+                    <% end %>
+    </div>
+    <% end %>
+        <%= link_to teams_path, class: "action-icon" do %>
+            <i class="fas fa-arrow-left"></i>
+            <% end %>

@@ -1,0 +1,29 @@
+<!--
+Author: Hello (Sandipparida282@gmail.com)
+_add_member.html.erb (c) 2023
+Desc: description
+Created:  2023-12-11T16:38:08.146Z
+Modified: !date!
+-->
+
+<!-- Add Member Form -->
+<div class="mb-8">
+    <h3 class="text-lg font-semibold mb-2">Add Member</h3>
+    <%= form_with(url: add_member_team_path(@team), method: :post) do |f| %>
+        <div class="flex items-center mb-4">
+            <%= f.text_field :email, placeholder: 'Enter email' , class: "border-2 rounded-lg p-2  mb-4" %>
+                <%= select_tag "role_id" , options_from_collection_for_select(@role, "id" , "name" ),
+                    class: "border-2 rounded-lg ml-2 mb-4" %>
+                    <%= button_tag type: "submit" , class: "btn btn-primary" do %>
+                        <i class="m-4 mt-1  fas fa-plus"></i>
+                        <% end %>
+
+        </div>
+        <% end %>
+            <div>
+                <h5>
+                    Team Members
+                </h5>
+                <%=inlist(@team.members.pluck(:email)) %>
+            </div>
+</div>

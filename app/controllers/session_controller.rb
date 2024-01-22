@@ -9,9 +9,13 @@ class SessionController < ApplicationController
   end
   
   def create
-    @user = User.find_by(email: params[:email])
-
+    @user = User.find_by_email(params[:email])
+    puts "User before successfully........."
+    puts params[:email]
+    puts @user
+    puts params[:password]
     if @user&.authenticate(params[:password])
+      puts "User created successfully........."
       sign_in(@user)
       redirect_to teams_path, notice: 'Logged in successfully!'
     else
@@ -27,7 +31,7 @@ class SessionController < ApplicationController
   private
 
   def handle_failed_login
-    flash.now[:alert] = 'Invalid email or password.'
-    render :new
+    flash[:alert] = 'Invalid email or password.'
+    redirect_to login_path
   end
 end

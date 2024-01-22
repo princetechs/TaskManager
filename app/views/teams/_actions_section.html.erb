@@ -1,0 +1,20 @@
+<!--
+Author: Hello (Sandipparida282@gmail.com)
+_actions_section.html.erb (c) 2023
+Desc: description
+Created:  2023-12-22T17:45:06.600Z
+Modified: !date!
+-->
+
+<!-- _actions_section.html.erb -->
+<div class="mb-8">
+    <h3 class="text-lg font-semibold mb-2">Actions</h3>
+    <div class="flex space-x-4">
+        <% if can? :create, Task %>
+            <%= link_to new_team_task_path(@team),
+                class: "rounded-lg py-2 px-4 bg-indigo-600 text-white font-medium hover:bg-indigo-700" do %>
+                <i class="fas fa-plus"></i>
+                <% end %>
+                    <% end %>
+    </div>
+</div>

@@ -4,10 +4,14 @@ class User < ApplicationRecord
     validates :name, presence: true, uniqueness: true, length: { in: 3..10 }
     validates :password, presence: true, length: { minimum: 6 }, on: :create
     validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP, message: "Invalid email format" }
-  
+
     has_many :team_users, dependent: :destroy 
     has_many :teams, through: :team_users, dependent: :destroy 
     has_many :roles, through: :team_users
-    
+
+    def role?(role)
+      self.roles.where(name: role).any?
+    end
+
   end
   

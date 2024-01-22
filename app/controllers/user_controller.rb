@@ -1,11 +1,13 @@
 class UserController < ApplicationController
 
   before_action :require_login, only: [:dashboard]
+  
   def require_login
     unless current_user
       redirect_to login_path
     end
   end
+
   def new
     @user = User.new
   end

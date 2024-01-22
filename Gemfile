@@ -1,13 +1,15 @@
-source "https://rubygems.org"
 
 ruby "3.2.2"
+
 gem "recaptcha"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+
 gem "rails", "~> 7.1.2"
+source "https://rubygems.org"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
 
+gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 
@@ -16,9 +18,9 @@ gem "puma", ">= 5.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
+gem "turbo-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -67,6 +69,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  # gem 'shoulda-matchers', '~> 5.0'
 end
-
+gem 'cancancan', '~> 3.0'
 gem "tailwindcss-rails", "~> 2.0"
